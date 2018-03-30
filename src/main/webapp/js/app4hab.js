@@ -95,8 +95,8 @@ function clickTabPhotos(){
 }
 
 function loadActivities(){
+
     clearLeftPane();
-    
     $.ajax({
       url: "/app4hab/api/control/allactivities",
       success: function(result){
@@ -139,10 +139,92 @@ function showActivityDetails(id){
 
 function loadSensors(){
     clearLeftPane();
+
+    $.ajax({
+        url: "/app4hab/api/control/statuses",
+        success: function(result){
+            jQuery.each(result, function(i, item){
+                $("#TabTable").find('tbody')
+                    .append($('<tr>')
+                        .addClass("text-info")
+                        .append($('<td>').text(item["id"]))
+                        //.append($('<td>').text(unixToReadableDate(item["timestamp"])))
+                        .append($('<td>').text(item["timestamp"]))
+                        .click(function(){
+                            showSensorsDetails(item["id"]);
+                            $("html, body").animate({ scrollTop: 0 }, "slow");
+                        })
+                    )
+            })
+        }
+    });
+
+
+    $("#TabTable").find('thead')
+        .append($('<tr>')
+            .append($('<th>').text("ID"))
+            .append($('<th>').text("Time"))
+            //.append($('<th>').text("Altitude"))
+        )
+}
+
+function showSensorsDetails(id){
+    $("#SelectionHeadline").text("Status: " + id);
+    $("#CodeArea").text("...");
+
+    $.ajax({
+        url: "/app4hab/api/control/status/" + id,
+        success: function(result){
+            console.log(result);
+            $("#CodeArea").html(syntaxHighlight(result));
+        }
+    });
 }
 
 function loadPhotos(){
     clearLeftPane();
+
+
+    $.ajax({
+        url: "/app4hab/api/control/photos",
+        success: function(result){
+            jQuery.each(result, function(i, item){
+                $("#TabTable").find('tbody')
+                    .append($('<tr>')
+                        .addClass("text-info")
+                        .append($('<td>').text(item["id"]))
+                        .append($('<td>').text(item["timestamp"]))
+                        .append($('<td>').text(item["altitude"]))
+                        .click(function(){
+                            showPhotosDetails(item["id"]);
+                            $("html, body").animate({ scrollTop: 0 }, "slow");
+                        })
+                    )
+            })
+        }
+    });
+
+
+
+    $("#TabTable").find('thead')
+        .append($('<tr>')
+            .append($('<th>').text("ID"))
+            .append($('<th>').text("Time"))
+            .append($('<th>').text("Altitude"))
+        )
+}
+
+function showPhotosDetails(id){
+    $("#SelectionHeadline").text("Photo: " + id);
+    $("#CodeArea").text("...");
+
+    $.ajax({
+        url: "/app4hab/api/control/photo/" + id,
+        success: function(result){
+            console.log(result);
+            $("#CodeArea").html(syntaxHighlight(result));
+        }
+    });
 }
 
 function clearLeftPane(){

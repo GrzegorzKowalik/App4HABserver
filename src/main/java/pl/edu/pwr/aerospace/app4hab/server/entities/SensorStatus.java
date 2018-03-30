@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class SensorStatus {
@@ -20,6 +21,16 @@ public class SensorStatus {
     private Integer atmegaReadID;
     private Long lastSensorReading;
     private Float phoneTemp;
+
+    private String timestamp;
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public int getID() {
         return ID;
