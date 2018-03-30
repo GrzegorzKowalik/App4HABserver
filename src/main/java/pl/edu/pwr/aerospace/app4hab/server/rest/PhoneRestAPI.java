@@ -70,6 +70,16 @@ public class PhoneRestAPI {
         return Response.status(204).build();
     }
 
+    @POST
+    @Path("/log")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response saveLog(String log) throws IOException {
+        LOG.info("Incoming request with photo");
+        logActivity("log", log);
+
+        return Response.status(204).build();
+    }
+
     @GET
     @Path("/test")
     @Produces(MediaType.TEXT_HTML)

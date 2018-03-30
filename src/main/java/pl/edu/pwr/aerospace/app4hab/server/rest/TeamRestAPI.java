@@ -2,7 +2,6 @@ package pl.edu.pwr.aerospace.app4hab.server.rest;
 
 import javassist.tools.web.BadHttpRequest;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import pl.edu.pwr.aerospace.app4hab.server.CommandsRequestValidator;
 import pl.edu.pwr.aerospace.app4hab.server.daos.CommandsDao;
 import pl.edu.pwr.aerospace.app4hab.server.daos.ImageDao;
@@ -16,7 +15,6 @@ import pl.edu.pwr.aerospace.app4hab.server.entities.SensorStatus;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.util.List;
 
 @Path("api/control")
@@ -123,6 +121,16 @@ public class TeamRestAPI {
 
         ImageDao dao = new ImageDao();
         return dao.getImage(id);
+    }
+
+    @GET
+    @Path("/logs")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PhoneActivity> getLogs() {
+        LOG.info("Incoming request for logs");
+
+        PhoneActivityDao dao = new PhoneActivityDao();
+        return dao.getLogs();
     }
 
     @GET

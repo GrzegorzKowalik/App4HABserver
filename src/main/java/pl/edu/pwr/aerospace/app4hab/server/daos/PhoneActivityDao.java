@@ -47,4 +47,13 @@ public class PhoneActivityDao extends Dao {
             throw new NotFoundException();
         }
     }
+
+    public List<PhoneActivity> getLogs() {
+        Session s = Db.getSession();
+        Transaction tx = s.beginTransaction();
+        Criteria c = s.createCriteria(PhoneActivity.class)
+                .add(Restrictions.like("endpoint", "log"));
+        c.addOrder(Order.desc("timestamp"));
+        return c.list();
+    }
 }

@@ -13,7 +13,6 @@ function sendTestAjax() {
 function initPage(){
     console.log("initPage");
     clickTabActivities();
-    updateLastActivity();
 }
 
 function update(){
