@@ -4,10 +4,3 @@ data/
 .settings/
 .idea/
 *.iml
-src/main/java/pl/edu/pwr/aerospace/app4hab/server/entities/Commands.java
-src/main/java/pl/edu/pwr/aerospace/app4hab/server/CommandsRequestValidator.java
-src/main/java/pl/edu/pwr/aerospace/app4hab/server/CommandsRequestValidator.java
-src/main/java/pl/edu/pwr/aerospace/app4hab/server/CommandsRequestValidator.java
-src/main/java/pl/edu/pwr/aerospace/app4hab/server/CommandsRequestValidator.java
-src/main/java/pl/edu/pwr/aerospace/app4hab/server/daos/CommandsDao.java
-src/main/java/pl/edu/pwr/aerospace/app4hab/server/daos/Dao.java
