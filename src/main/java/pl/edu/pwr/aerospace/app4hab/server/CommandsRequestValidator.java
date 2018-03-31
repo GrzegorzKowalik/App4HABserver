@@ -33,6 +33,7 @@ public class CommandsRequestValidator {
             String logging = map.getOrDefault("logging", "");
             String radio = map.getOrDefault("radio", "");
             String photo = map.getOrDefault("picture", "");
+            String device = map.getOrDefault("device", "");
 
             Commands c = new Commands();
 
@@ -44,6 +45,8 @@ public class CommandsRequestValidator {
                 c.setRadio(true);
             if (photo.equals("on"))
                 c.setSendPicture(true);
+            if (device.equals("on"))
+                c.setDevice(true);
 
             return c;
         }

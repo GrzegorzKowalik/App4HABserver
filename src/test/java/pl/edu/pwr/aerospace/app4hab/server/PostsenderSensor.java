@@ -1,4 +1,4 @@
-package pl.edu.pwr.aerospace.app4hab.server.test;
+package pl.edu.pwr.aerospace.app4hab.server;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

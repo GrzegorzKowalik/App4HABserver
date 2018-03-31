@@ -14,6 +14,7 @@ public class Commands {
     private boolean logging;
     private boolean camera;
     private boolean radio;
+    private boolean device;
     private boolean sendPicture;
 
     public int getID() {
@@ -46,6 +47,14 @@ public class Commands {
 
     public void setRadio(boolean radio) {
         this.radio = radio;
+    }
+
+    public boolean isDevice() {
+        return device;
+    }
+
+    public void setDevice(boolean device) {
+        this.device = device;
     }
 
     public boolean isSendPicture() {
