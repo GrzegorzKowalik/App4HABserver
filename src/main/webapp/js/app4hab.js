@@ -73,6 +73,7 @@ function clickTabActivities(){
     $("#TabActivities").addClass("active");
     $("#TabSensors").removeClass("active");
     $("#TabPhotos").removeClass("active");
+    $("#TabLogs").removeClass("active");
     
 }
 
@@ -82,6 +83,7 @@ function clickTabSensors(){
     $("#TabActivities").removeClass("active");
     $("#TabSensors").addClass("active");
     $("#TabPhotos").removeClass("active");
+    $("#TabLogs").removeClass("active");
     
 }
 
@@ -91,7 +93,18 @@ function clickTabPhotos(){
     $("#TabActivities").removeClass("active");
     $("#TabSensors").removeClass("active");
     $("#TabPhotos").addClass("active");
+    $("#TabLogs").removeClass("active");
     
+}
+
+function clickTabLogs(){
+    loadLogs();
+
+    $("#TabActivities").removeClass("active");
+    $("#TabSensors").removeClass("active");
+    $("#TabPhotos").removeClass("active");
+    $("#TabLogs").addClass("active");
+
 }
 
 function loadActivities(){
@@ -220,6 +233,49 @@ function showPhotosDetails(id){
 
     $.ajax({
         url: "/app4hab/api/control/photo/" + id,
+        success: function(result){
+            console.log(result);
+            $("#CodeArea").html(syntaxHighlight(result));
+        }
+    });
+}
+
+function loadLogs(){
+
+    clearLeftPane();
+    $.ajax({
+        url: "/app4hab/api/control/logs",
+        success: function(result){
+            jQuery.each(result, function(i, item){
+                $("#TabTable").find('tbody')
+                    .append($('<tr>')
+                        .addClass("text-info")
+                        .append($('<td>').text(item["id"]))
+                        .append($('<td>').text(unixToReadableDate(item["timestamp"])))
+                        .append($('<td>').text(item["endpoint"]))
+                        .click(function(){
+                            showLogDetails(item["id"]);
+                            $("html, body").animate({ scrollTop: 0 }, "slow");
+                        })
+                    )
+            })
+        }
+    });
+
+    $("#TabTable").find('thead')
+        .append($('<tr>')
+            .append($('<th>').text("ID"))
+            .append($('<th>').text("Time"))
+            .append($('<th>').text("Endpoint"))
+        )
+}
+
+function showLogDetails(id){
+    $("#SelectionHeadline").text("Log: " + id);
+    $("#CodeArea").text("...");
+
+    $.ajax({
+        url: "/app4hab/api/control/activity/" + id,
         success: function(result){
             console.log(result);
             $("#CodeArea").html(syntaxHighlight(result));
