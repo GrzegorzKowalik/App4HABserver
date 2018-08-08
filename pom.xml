@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+                                 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>pl.edu.pwr.aerospace</groupId>
-	<artifactId>App4hab</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>App4hab</name>
+    <groupId>pl.edu.pwr.aerospace</groupId>
+    <artifactId>App4hab-server</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>App4hab server</name>
 
 
 	<dependencies>
@@ -87,7 +87,8 @@
 		</dependency>
 	</dependencies>
 
-	<build>
+
+    <build>
 		<plugins>
 			<plugin>
 				<!-- Deploy war to remote tomcat server, use goal 'tomcat7:redeploy' -->
@@ -95,8 +96,10 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.1</version>
 				<configuration>
-					<url>http://pwraerospace.pl:8080/manager/text</url>
+                    <username>aerospace-tomcat</username>
+                    <password>Q!w2e3r4</password>
                     <path>/app4hab</path>
+                    <url>http://pwraerospace.pl:8080/manager/html</url>
 				</configuration>
 			</plugin>
 

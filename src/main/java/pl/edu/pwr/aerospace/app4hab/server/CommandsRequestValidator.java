@@ -1,15 +1,21 @@
 package pl.edu.pwr.aerospace.app4hab.server;
 
 import javassist.tools.web.BadHttpRequest;
+import org.apache.log4j.Logger;
 import pl.edu.pwr.aerospace.app4hab.server.entities.Commands;
 
-import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CommandsRequestValidator {
+    private static Logger log = Logger.getLogger(CommandsRequestValidator.class);
 
-    public static Commands parse(String message) throws BadHttpRequest {
+    /**
+     * Parses commands from default HTML form to Commands model
+     * @param message string from HTML form
+     * @return Commands or null in case of parsing error or wrong secret
+     */
+    public static Commands parse(String message){
         try {
             String[] tokens = message.split("&");
             Map<String, String> map = new HashMap<>();
@@ -19,13 +25,8 @@ public class CommandsRequestValidator {
                 map.put(pair[0], pair[1]);
             }
 
-            byte[] bytesOfMessage = map.get("secret").getBytes("UTF-8");
-
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            String hashedSecret = bytesToHex(md.digest(bytesOfMessage));
-
-            System.out.println("---===Hashed secret: " + hashedSecret);
-            if (!hashedSecret.toLowerCase().equals("ee0aab83ce22b7756b251946a442aeb5")){
+            if (!map.get("secret").equals(Config.controlSecret)){
+                log.debug("Secret does not match");
                 return null;
             }
 
@@ -53,17 +54,5 @@ public class CommandsRequestValidator {
         catch (Exception e){
             return null;
         }
-    }
-
-
-    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
-    public static String bytesToHex(byte[] bytes) {
-        char[] hexChars = new char[bytes.length * 2];
-        for ( int j = 0; j < bytes.length; j++ ) {
-            int v = bytes[j] & 0xFF;
-            hexChars[j * 2] = hexArray[v >>> 4];
-            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-        }
-        return new String(hexChars);
     }
 }

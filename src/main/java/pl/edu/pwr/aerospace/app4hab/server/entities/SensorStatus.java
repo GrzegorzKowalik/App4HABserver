@@ -21,14 +21,17 @@ public class SensorStatus {
     private Integer atmegaReadID;
     private Long lastSensorReading;
     private Float phoneTemp;
+    private Date timestamp;
 
-    private String timestamp;
+    public SensorStatus(){
+        timestamp = new Date();
+    }
 
-    public String getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 

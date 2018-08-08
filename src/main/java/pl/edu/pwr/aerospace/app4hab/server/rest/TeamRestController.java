@@ -7,23 +7,16 @@ import pl.edu.pwr.aerospace.app4hab.server.daos.CommandsDao;
 import pl.edu.pwr.aerospace.app4hab.server.daos.ImageDao;
 import pl.edu.pwr.aerospace.app4hab.server.daos.PhoneActivityDao;
 import pl.edu.pwr.aerospace.app4hab.server.daos.SensorStatusDao;
-import pl.edu.pwr.aerospace.app4hab.server.entities.PhoneActivity;
-import pl.edu.pwr.aerospace.app4hab.server.entities.Commands;
-import pl.edu.pwr.aerospace.app4hab.server.entities.Image;
-import pl.edu.pwr.aerospace.app4hab.server.entities.SensorStatus;
+import pl.edu.pwr.aerospace.app4hab.server.entities.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("api/control")
-public class TeamRestAPI {
-    private static final Logger LOG = Logger.getLogger(TeamRestAPI.class);
-
-    public TeamRestAPI() {
-        LOG.info("Initializing TeamRestAPI");
-    }
+@Path("control")
+public class TeamRestController {
+    private static final Logger LOG = Logger.getLogger(TeamRestController.class);
 
     @POST
     @Path("/commands")
@@ -46,7 +39,7 @@ public class TeamRestAPI {
     @Path("/lastcommands")
     @Produces(MediaType.APPLICATION_JSON)
     public Commands getLastCommands() {
-        LOG.info("Incoming request for last activity");
+        LOG.info("Incoming request for last commands");
 
         CommandsDao dao = new CommandsDao();
 
@@ -57,8 +50,6 @@ public class TeamRestAPI {
     @Path("/lastactivity")
     @Produces(MediaType.APPLICATION_JSON)
     public PhoneActivity getLastActivity() {
-        LOG.info("Incoming request for last activity");
-
         PhoneActivityDao dao = new PhoneActivityDao();
         return dao.getLastActivity();
     }

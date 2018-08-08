@@ -10,6 +10,7 @@ public class PhoneActivity {
     private int ID;
     private Date timestamp;
     private String endpoint;
+    @Column(columnDefinition="LONGVARCHAR")
     private String payload;
 
     public PhoneActivity() {

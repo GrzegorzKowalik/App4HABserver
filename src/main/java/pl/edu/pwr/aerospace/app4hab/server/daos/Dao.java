@@ -4,6 +4,10 @@ import org.hibernate.Session;
 
 public abstract class Dao {
 
+    /**
+     * Saves object to base
+     * @param o object to be saved
+     */
     public void save(Object o){
         Session s = Db.getSession();
         s.beginTransaction();

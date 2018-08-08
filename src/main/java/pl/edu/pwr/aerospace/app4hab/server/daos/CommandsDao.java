@@ -8,6 +8,9 @@ import pl.edu.pwr.aerospace.app4hab.server.entities.Commands;
 
 public class CommandsDao extends Dao {
 
+    /**
+     * @return latest commands for phone
+     */
     public Commands getLatestCommands(){
         Session s = Db.getSession();
         Transaction tx = s.beginTransaction();

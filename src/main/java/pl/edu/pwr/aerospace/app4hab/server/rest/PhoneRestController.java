@@ -19,11 +19,11 @@ import pl.edu.pwr.aerospace.app4hab.server.entities.SensorStatus;
 import java.io.IOException;
 
 @Path("api/")
-public class PhoneRestAPI {
-    private static final Logger LOG = Logger.getLogger(PhoneRestAPI.class);
+public class PhoneRestController {
+    private static final Logger LOG = Logger.getLogger(PhoneRestController.class);
 
-    public PhoneRestAPI() {
-        LOG.info("Initializing PhoneRestAPI");
+    public PhoneRestController() {
+        LOG.info("Initializing PhoneRestController");
     }
 
     @GET
@@ -59,11 +59,12 @@ public class PhoneRestAPI {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response uploadPhoto(String imageJson) throws IOException {
         LOG.info("Incoming request with photo");
-        logActivity("photo", imageJson);
 
         ObjectMapper om = new ObjectMapper();
         Image image = om.readValue(imageJson, Image.class);
+        image.processImage();
 
+        logActivity("photo", image.getImg());
         ImageDao dao = new ImageDao();
         dao.save(image);
 

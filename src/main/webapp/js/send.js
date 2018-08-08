@@ -6,7 +6,7 @@ function initSend(){
         console.log($("#commandsForm").serialize())
         $.ajax({
                type: "POST",
-               url: '/app4hab/api/control/commands/',
+               url: '/app4hab/control/commands/',
                data: $("#commandsForm").serialize(),
                contentType: "text/plain",
                success: function(data)
@@ -26,11 +26,19 @@ function showLastActivityDetails(){
     $("#CodeArea").text("...");
 
     $.ajax({
-      url: "/app4hab/api/control/lastcommands/",
+      url: "/app4hab/control/lastcommands/",
       success: function(result){
           console.log(result);
           $("#CodeArea").html(syntaxHighlight(result));
       }
     });
+}
+
+function selectAll(){
+    $("#logging").prop("checked", true)
+    $("#camera").prop("checked", true)
+    $("#radio").prop("checked", true)
+    $("#picture").prop("checked", true)
+    $("#device").prop("checked", true)
 }
 

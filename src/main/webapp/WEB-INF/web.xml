@@ -6,25 +6,38 @@
 	<display-name>App4HAB control server</display-name>
 
 	<filter>
-		<filter-name>jersey</filter-name>
-		<filter-class>com.sun.jersey.spi.container.servlet.ServletContainer</filter-class>
+		<filter-name>tokenRequired</filter-name>
+        <filter-class>pl.edu.pwr.aerospace.app4hab.server.AuthenticationFilter</filter-class>
+    </filter>
 
-		<init-param>
-			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>pl.edu.pwr.aerospace.app4hab.server.rest</param-value>
-		</init-param>
+    <filter>
+        <filter-name>rest</filter-name>
+        <filter-class>com.sun.jersey.spi.container.servlet.ServletContainer</filter-class>
 
-		<init-param>
-			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
-			<param-value>true</param-value>
-		</init-param>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>pl.edu.pwr.aerospace.app4hab.server.rest</param-value>
+        </init-param>
 
-	</filter>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
 
-	<filter-mapping>
-		<filter-name>jersey</filter-name>
-		<url-pattern>/api/*</url-pattern>
-	</filter-mapping>
+    <filter-mapping>
+        <filter-name>tokenRequired</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>rest</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>rest</filter-name>
+        <url-pattern>/control/*</url-pattern>
+    </filter-mapping>
 
     <listener>
         <listener-class>pl.edu.pwr.aerospace.app4hab.server.HibernateListener</listener-class>

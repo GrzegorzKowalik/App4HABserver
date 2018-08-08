@@ -4,3 +4,6 @@ data/
 .settings/
 .idea/
 *.iml
+*.jpg
+src/main/webapp/img/
+documentation/

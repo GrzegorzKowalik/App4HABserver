@@ -32,6 +32,8 @@ public class PhoneActivityDao extends Dao {
         Transaction tx = s.beginTransaction();
         Criteria c = s.createCriteria(PhoneActivity.class);
         c.addOrder(Order.desc("timestamp"));
+        c.setFirstResult(0);
+        c.setMaxResults(150);
         return c.list();
     }
 
