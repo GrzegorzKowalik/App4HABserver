@@ -263,7 +263,6 @@ function showPhotosDetails(id){
     });
 }
 
-
 function loadLogs(){
    clearLeftPane();
    $.ajax({
